@@ -2,31 +2,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MemberCard from '@/components/MemberCard.vue';
+import { useStore } from 'vuex'
+
 
 export default defineComponent({
     name: 'HomeView',
     components: {
         MemberCard
     },
-    data() {
+    setup() {
+        const store = useStore();
+        const members = store.state.members;
+
         return {
-            members: [
-                {
-                    name: "Mulle",
-                    image: "",
-                    count: 0,
-                },
-                {
-                    name: "Mahir",
-                    image: "",
-                    count: 0,
-                },
-                {
-                    name: "Simon",
-                    image: "",
-                    count: 0,
-                }
-            ]
+            members
         }
     }
 });

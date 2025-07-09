@@ -1,5 +1,6 @@
 <script>
 import {defineComponent} from "vue";
+import {useStore} from "vuex";
 
 export default defineComponent({
     // type inference enabled
@@ -7,6 +8,20 @@ export default defineComponent({
     props: {
         member: Object,
     },
+    setup() {
+        const store = useStore();
+        return {
+            store
+        }
+    },
+    methods: {
+        increaseCount() {
+            this.store.dispatch('increment', this.member)
+        },
+        decreaseCount() {
+            this.store.dispatch('decrement', this.member)
+        }
+    }
 });
 
 </script>
@@ -19,8 +34,14 @@ export default defineComponent({
         <div class="membercard_item__actions">
             <h2 v-html="member.count"></h2>
             <div class="membercard_item__actions__buttons">
-                <button class="membercard_item__actions__buttons__plus">+</button>
-                <button class="membercard_item__actions__buttons__minus">-</button>
+                <button
+                    class="membercard_item__actions__buttons__plus"
+                    @click="increaseCount()"
+                >+</button>
+                <button
+                    @click="decreaseCount()"
+                    class="membercard_item__actions__buttons__minus"
+                >-</button>
             </div>
         </div>
     </div>
