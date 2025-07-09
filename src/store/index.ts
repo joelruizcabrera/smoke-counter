@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { createStore } from 'vuex'
+import {persistData} from '@/persist'
 
 export default createStore({
   state: {
@@ -35,21 +36,30 @@ export default createStore({
   actions: {
       increment(state, m) {
           // @ts-ignore
-          console.log(m)
+          let tempItem;
           this.state.members.forEach(item => {
               if (item.id === m.id) {
                   item.count++
+                  tempItem = item
               }
           })
+          if (tempItem) {
+              persistData(tempItem)
+          }
       },
       decrement(state, m) {
           if(m.count <= 0) {return;}
+          let tempItem;
           // @ts-ignore
           this.state.members.forEach(item => {
               if (item.id === m.id) {
                   item.count--
+                  tempItem = item
               }
           })
+          if (tempItem) {
+              persistData(tempItem)
+          }
       }
   },
   modules: {
