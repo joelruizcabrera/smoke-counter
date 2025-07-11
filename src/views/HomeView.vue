@@ -1,6 +1,6 @@
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import MemberCard from '@/components/MemberCard.vue';
 import { useStore } from 'vuex'
 
@@ -9,6 +9,11 @@ export default defineComponent({
     name: 'HomeView',
     components: {
         MemberCard
+    },
+    data() {
+        return {
+            steps: ref(1)
+        }
     },
     setup() {
         const store = useStore();
@@ -25,8 +30,9 @@ export default defineComponent({
   <div class="home">
       <h1><b>Heilig Geist</b><br>🚬Kippen-Counter🚬</h1>
       <div class="home__memmber__listing">
-          <MemberCard v-for="member in members" :key="member" :member="member"></MemberCard>
+          <MemberCard v-for="member in members" :key="member" :member="member" :steps="steps"></MemberCard>
       </div>
+      <input type="number" v-model="steps">
   </div>
 </template>
 

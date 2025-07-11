@@ -22,6 +22,24 @@ export default createStore({
             name: "Simon",
             image: "",
             count: 0,
+        },
+        {
+            id: 4,
+            name: "Ruiz Cabrera",
+            image: "",
+            count: 0,
+        },
+        {
+            id: 5,
+            name: "Löris",
+            image: "",
+            count: 0,
+        },
+        {
+            id: 6,
+            name: "Nils",
+            image: "",
+            count: 0,
         }
     ]
   },
@@ -38,8 +56,8 @@ export default createStore({
           // @ts-ignore
           let tempItem;
           this.state.members.forEach(item => {
-              if (item.id === m.id) {
-                  item.count++
+              if (item.id === m.member.id) {
+                  item.count = item.count + m.steps;
                   tempItem = item
               }
           })
@@ -48,12 +66,12 @@ export default createStore({
           }
       },
       decrement(state, m) {
-          if(m.count <= 0) {return;}
+          if(m.member.count <= 0 || m.member.count < m.steps) {return;}
           let tempItem;
           // @ts-ignore
           this.state.members.forEach(item => {
-              if (item.id === m.id) {
-                  item.count--
+              if (item.id === m.member.id) {
+                  item.count = item.count - m.steps;
                   tempItem = item
               }
           })

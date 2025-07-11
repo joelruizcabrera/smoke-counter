@@ -7,6 +7,7 @@ export default defineComponent({
     name: "MemberCard",
     props: {
         member: Object,
+        steps: Number
     },
     setup() {
         const store = useStore();
@@ -16,10 +17,10 @@ export default defineComponent({
     },
     methods: {
         increaseCount() {
-            this.store.dispatch('increment', this.member)
+            this.store.dispatch('increment', {member: this.member, steps: this.steps})
         },
         decreaseCount() {
-            this.store.dispatch('decrement', this.member)
+            this.store.dispatch('decrement', {member: this.member, steps: this.steps})
         }
     }
 });
@@ -36,10 +37,10 @@ export default defineComponent({
             <div class="membercard_item__actions__buttons">
                 <button
                     class="membercard_item__actions__buttons__plus"
-                    @click="increaseCount()"
+                    @click="increaseCount(steps)"
                 >+</button>
                 <button
-                    @click="decreaseCount()"
+                    @click="decreaseCount(steps)"
                     class="membercard_item__actions__buttons__minus"
                 >-</button>
             </div>
