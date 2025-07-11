@@ -12,8 +12,16 @@ export default defineComponent({
     },
     setup() {
         const store = useStore();
+
+        const timeConverter = (UNIX_timestamp) => {
+            const date = new Date(UNIX_timestamp).toLocaleDateString("de-DE")
+            const time = new Date(UNIX_timestamp).toLocaleTimeString("de-DE")
+            return date + " " + time;
+        }
+
         return {
-            store
+            store,
+            timeConverter
         }
     },
     methods: {
@@ -48,18 +56,21 @@ export default defineComponent({
     <img :src="member?.image" alt="name">
     <div class="membercard_item__right">
         <h2 class="membercard_item__right__name">{{member.name}}</h2>
-        <div class="membercard_item__actions">
-            <h2 v-html="member.name === 'Loris' ? '🍁' + member.count : member.count"></h2>
-            <div class="membercard_item__actions__buttons">
-                <button
-                    class="membercard_item__actions__buttons__plus"
-                    @click="increaseCount(steps)"
-                >+</button>
-                <button
-                    @click="decreaseCount(steps)"
-                    class="membercard_item__actions__buttons__minus"
-                >-</button>
+        <div class="membercard_item__right__container">
+            <div class="membercard_item__actions">
+                <h2 v-html="member.name === 'Loris' ? '🍁' + member.count : member.count"></h2>
+                <div class="membercard_item__actions__buttons">
+                    <button
+                        class="membercard_item__actions__buttons__plus"
+                        @click="increaseCount(steps)"
+                    >+</button>
+                    <button
+                        @click="decreaseCount(steps)"
+                        class="membercard_item__actions__buttons__minus"
+                    >-</button>
+                </div>
             </div>
+            <p style="text-align: right;margin:0;margin-top:.5rem">Letzte Fluppe:<br><b>{{timeConverter(member.updated)}}</b></p>
         </div>
     </div>
 </div>
