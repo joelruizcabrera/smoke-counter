@@ -3,6 +3,7 @@
 import { defineComponent, ref } from 'vue';
 import MemberCard from '@/components/MemberCard.vue';
 import { useStore } from 'vuex'
+import {getUsers} from "@/persist";
 
 
 export default defineComponent({
@@ -12,16 +13,19 @@ export default defineComponent({
     },
     data() {
         return {
-            steps: ref(1)
+            steps: ref(1),
+            members: ref([])
         }
     },
     setup() {
         const store = useStore();
-        const members = store.state.members;
-
         return {
-            members
+            store
         }
+    },
+    async mounted() {
+        const members = await getUsers();
+        this.members = members
     }
 });
 </script>

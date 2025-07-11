@@ -1,46 +1,25 @@
 /* eslint-disable */
-import { createStore } from 'vuex'
 import {persistData} from '@/persist'
 
-export default createStore({
+import { InjectionKey } from 'vue'
+import { createStore, useStore as baseUseStore, Store } from 'vuex'
+
+export interface State {
+    count: number
+}
+
+export const key: InjectionKey<Store<State>> = Symbol()
+
+
+// define your own `useStore` composition function
+export function useStore () {
+    return baseUseStore(key)
+}
+
+export const store = createStore({
   state: {
     members: [
-        {
-            id: 1,
-            name: "Mulle",
-            image: "",
-            count: 0,
-        },
-        {
-            id: 2,
-            name: "Mahir",
-            image: "",
-            count: 0,
-        },
-        {
-            id: 3,
-            name: "Simon",
-            image: "",
-            count: 0,
-        },
-        {
-            id: 4,
-            name: "Ruiz Cabrera",
-            image: "",
-            count: 0,
-        },
-        {
-            id: 5,
-            name: "Löris",
-            image: "",
-            count: 0,
-        },
-        {
-            id: 6,
-            name: "Nils",
-            image: "",
-            count: 0,
-        }
+
     ]
   },
   getters: {
@@ -52,15 +31,21 @@ export default createStore({
       }
   },
   actions: {
+      setMembers (state, members) {
+          this.state.members = members
+      },
       increment(state, m) {
           // @ts-ignore
           let tempItem;
           this.state.members.forEach(item => {
+              // @ts-ignore
               if (item.id === m.member.id) {
+                  // @ts-ignore
                   item.count = item.count + m.steps;
                   tempItem = item
               }
           })
+          console.log(tempItem)
           if (tempItem) {
               persistData(tempItem)
           }
@@ -70,7 +55,9 @@ export default createStore({
           let tempItem;
           // @ts-ignore
           this.state.members.forEach(item => {
+              // @ts-ignore
               if (item.id === m.member.id) {
+                  // @ts-ignore
                   item.count = item.count - m.steps;
                   tempItem = item
               }
