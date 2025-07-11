@@ -51,6 +51,7 @@ export const store = createStore({
           }
       },
       decrement(state, m) {
+          console.log(m)
           if(m.member.count <= 0 || m.member.count < m.steps) {return;}
           let tempItem;
           // @ts-ignore

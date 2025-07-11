@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 import {defineComponent} from "vue";
 import {useStore} from "vuex";
 
@@ -17,10 +18,25 @@ export default defineComponent({
     },
     methods: {
         increaseCount() {
-            this.store.dispatch('increment', {member: this.member, steps: this.steps})
+            this.store.dispatch(
+                'increment',
+                {
+                    member: this.member,
+                    steps: this.steps
+                }
+            )
+            this.member.count = this.member.count + this.steps;
         },
         decreaseCount() {
-            this.store.dispatch('decrement', {member: this.member, steps: this.steps})
+            if(this.member.count <= 0 || this.member.count < this.steps) {return;}
+            this.store.dispatch(
+                'decrement',
+                {
+                    member: this.member,
+                    steps: this.steps
+                }
+            )
+            this.member.count = this.member.count - this.steps;
         }
     }
 });
