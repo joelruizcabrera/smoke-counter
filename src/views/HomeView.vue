@@ -14,7 +14,8 @@ export default defineComponent({
     data() {
         return {
             steps: ref(1),
-            members: ref([])
+            members: ref([]),
+            sumCount: ref(0)
         }
     },
     setup() {
@@ -26,6 +27,16 @@ export default defineComponent({
     async mounted() {
         const members = await getUsers();
         this.members = members
+
+        let countSum = 0;
+
+        console.log(this.members)
+
+        for (let i = 0; i < members.length; i++) {
+            countSum = countSum + members[i].count
+        }
+
+        this.sumCount = countSum
     }
 });
 </script>
@@ -33,6 +44,7 @@ export default defineComponent({
 <template>
   <div class="home" style="padding-bottom: 5rem">
       <h1><b>Heilig Geist</b><br>🚬Kippen-Counter🚬</h1>
+      <h2>Insgesamt geraucht: <b>{{sumCount}}</b></h2>
       <div class="home__memmber__listing">
           <MemberCard v-for="member in members" :key="member" :member="member" :steps="steps"></MemberCard>
       </div>
