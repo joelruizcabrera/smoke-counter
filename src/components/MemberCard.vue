@@ -49,7 +49,7 @@ export default defineComponent({
     <div class="membercard_item__right">
         <h2 class="membercard_item__right__name">{{member.name}}</h2>
         <div class="membercard_item__actions">
-            <h2 v-html="member.count"></h2>
+            <h2 v-html="member.name === 'Loris' ? '🍁' + member.count : member.count"></h2>
             <div class="membercard_item__actions__buttons">
                 <button
                     class="membercard_item__actions__buttons__plus"
