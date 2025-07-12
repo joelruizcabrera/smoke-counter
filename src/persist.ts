@@ -29,3 +29,10 @@ export const sortedMembers = (members:any) => {
     console.log(sortedArray)
     return sortedArray;
 }
+
+export async function overwriteUserOnChange(mId:string) {
+    setTimeout(async () => {
+        const res = await axios.get("https://sizablepicture-eu.backendless.app/api/data/userdata/" + mId)
+    }, 2000)
+
+}

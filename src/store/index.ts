@@ -50,13 +50,11 @@ export const store = createStore({
                   tempItem = item
               }
           })
-          console.log(tempItem)
           if (tempItem) {
               persistData(tempItem)
           }
       },
       decrement(state, m) {
-          console.log(m)
           if(m.member.count <= 0 || m.member.count < m.steps) {return;}
           let tempItem;
           // @ts-ignore
@@ -73,14 +71,15 @@ export const store = createStore({
           }
       },
       setCount(state, m) {
-          if(m.count <= 0) {return;}
+          if(m.member.count <= 0) {return;}
           let tempItem;
           // @ts-ignore
           this.state.members.forEach(item => {
+              console.log(item)
               // @ts-ignore
-              if (item.id === m.id) {
+              if (item.id === m.member.id) {
                   // @ts-ignore
-                  item.count = m.count;
+                  item.count = m.member.count + 1;
                   tempItem = item
               }
           })

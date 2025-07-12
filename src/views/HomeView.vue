@@ -47,7 +47,6 @@ export default defineComponent({
       <h2 style="margin-bottom: 2rem">Insgesamt geraucht:<br><b>{{sumCount}} Stk.</b> <small>({{(sumCount * 0.40).toFixed(2)}}€)</small></h2>
       <div class="home__memmber__listing">
           <MemberCard v-for="member in members" :key="member" :member="member" :steps="steps"></MemberCard>
-
       </div>
       <input type="number" v-model="steps" class="step_input">
   </div>
