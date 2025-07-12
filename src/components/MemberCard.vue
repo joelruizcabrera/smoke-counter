@@ -73,7 +73,7 @@ export default defineComponent({
 
 <template>
 <div class="membercard_item">
-    <img :src="member?.image" alt="name">
+    <img :src="`/img/users/${member.id}.jpg`" alt="name" class="membercard_item__image">
     <div class="membercard_item__right">
         <h2 class="membercard_item__right__name">{{member.name}}</h2>
         <div class="membercard_item__right__container">
@@ -101,7 +101,7 @@ export default defineComponent({
                     </button>
                 </div>
             </div>
-            <p style="text-align: right;margin:0;margin-top:.5rem">Letzte Fluppe:<br><b>{{timeConverter(member.updated)}}</b></p>
+            <p style="text-align: right;margin:0;margin-top:.5rem"><span v-html="member.name === 'Loris (Ganja)' ? 'Letzte Keule:' : 'Letzte Fluppe:'"></span><br><b>{{timeConverter(member.updated)}}</b></p>
         </div>
     </div>
 </div>
@@ -115,12 +115,19 @@ h2 {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: .5rem;
+    gap: .75rem;
     padding: .75rem;
     background-color: #e9edf5;
     border-radius: 8px;
     box-shadow: 1px 2px 8px #ccc;
     border: 1px solid #fff;
+    &__image {
+        width: auto;
+        height: 4rem;
+        border-radius: 8px;
+        box-shadow: 1px 2px 6px rgba(68, 68, 68, 0.52);
+
+    }
     &__right {
         width: 100%;
         display: flex;
@@ -128,6 +135,9 @@ h2 {
         justify-content: space-between;
         align-items: center;
         gap: .25rem;
+        &__name {
+            text-align: start;
+        }
     }
     &__actions {
         display: flex;
@@ -143,7 +153,7 @@ h2 {
             flex-wrap: wrap;
             justify-content: flex-end;
             button {
-                height: 3rem;
+                height: 2.5rem;
                 aspect-ratio: 1;
                 width: auto;
                 font-size: 2rem;
