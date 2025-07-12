@@ -23,11 +23,23 @@ export const store = createStore({
     ]
   },
   getters: {
-      getMembers: (state) => state.members,
+      getMembers: (state) => {
+          console.log(state.members)
+          return state.members
+      },
   },
   mutations: {
       setMembers (state, members) {
-          state.members = members
+          const sortedMembers = members.sort(function(a:any, b:any) {
+              const keyA = a.count,
+                  keyB = b.count;
+              // Compare the 2 dates
+              if (keyA < keyB) return -1;
+              if (keyA > keyB) return 1;
+              return 0;
+          });
+
+          state.members = sortedMembers
       }
   },
   actions: {

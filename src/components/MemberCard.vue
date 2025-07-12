@@ -64,6 +64,7 @@ export default defineComponent({
                     this.isEditing.value = true
                     break;
             }
+            console.log(id)
         }
     }
 });
