@@ -44,7 +44,7 @@ export default defineComponent({
 <template>
   <div class="home" style="padding-bottom: 5rem">
       <h1><b>Heilig Geist</b><br>🚬Kippen-Counter🚬</h1>
-      <h2 style="margin-bottom: 2rem">Insgesamt geraucht: <b>{{sumCount}} Stk.</b></h2>
+      <h2 style="margin-bottom: 2rem">Insgesamt geraucht:<br><b>{{sumCount}} Stk.</b> <small>({{(sumCount * 0.40).toFixed(2)}}€)</small></h2>
       <div class="home__memmber__listing">
           <MemberCard v-for="member in members" :key="member" :member="member" :steps="steps"></MemberCard>
 

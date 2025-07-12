@@ -25,9 +25,20 @@ export default defineComponent({
             return date + " " + time;
         }
 
+        const manualCount = (count, member) => {
+            store.dispatch(
+                'setCount',
+                {
+                    member: member
+                }
+            )
+            member.count = count;
+        }
+
         return {
             store,
-            timeConverter
+            timeConverter,
+            manualCount,
         }
     },
     mounted(){
@@ -70,8 +81,10 @@ export default defineComponent({
         <h2 class="membercard_item__right__name">{{member.name}}</h2>
         <div class="membercard_item__right__container">
             <div class="membercard_item__actions">
-                <h2 v-html="member.name === 'Loris (Ganja)' ? '🍁' + member.count : member.count" v-if="!isEditing"></h2>
-                <input type="number" v-model="tempCountEdit" v-if="isEditing">
+                <div class="membercard_item__count">
+                    <h2 v-html="member.name === 'Loris (Ganja)' ? `<span style='filter: hue-rotate(65deg)'>🍁</span>` + member.count : member.count" v-if="!isEditing"></h2>
+                    <input min="0" type="number" v-model="tempCountEdit" v-if="isEditing" name="count" @change="manualCount(tempCountEdit, member)">
+                </div>
                 <div class="membercard_item__actions__buttons">
                     <button
                         class="membercard_item__actions__buttons__edit"
@@ -94,6 +107,7 @@ export default defineComponent({
                 </div>
             </div>
             <p style="text-align: right;margin:0;margin-top:.5rem"><span v-html="member.name === 'Loris (Ganja)' ? 'Letzte Keule:' : 'Letzte Fluppe:'"></span><br><b>{{timeConverter(member.updated)}}</b></p>
+            <p style="text-align: right;margin:0;">{{(member.count * 0.40).toFixed(2)}}€</p>
         </div>
     </div>
 </div>
@@ -113,6 +127,16 @@ h2 {
     border-radius: 8px;
     box-shadow: 1px 2px 8px #ccc;
     border: 1px solid #fff;
+    &__count {
+        input {
+            width: 4rem;
+            background: transparent;
+            text-align: right;
+            font-size: 1.4rem;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+    }
     &__image {
         width: auto;
         height: 4rem;

@@ -71,6 +71,22 @@ export const store = createStore({
           if (tempItem) {
               persistData(tempItem)
           }
+      },
+      setCount(state, m) {
+          if(m.count <= 0) {return;}
+          let tempItem;
+          // @ts-ignore
+          this.state.members.forEach(item => {
+              // @ts-ignore
+              if (item.id === m.id) {
+                  // @ts-ignore
+                  item.count = m.count;
+                  tempItem = item
+              }
+          })
+          if (tempItem) {
+              persistData(tempItem)
+          }
       }
   },
   modules: {
