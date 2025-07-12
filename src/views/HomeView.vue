@@ -3,7 +3,7 @@
 import { defineComponent, ref } from 'vue';
 import MemberCard from '@/components/MemberCard.vue';
 import { useStore } from 'vuex'
-import {getUsers} from "@/persist";
+import {getUsers, sortedMembers} from "@/persist";
 
 
 export default defineComponent({
@@ -26,7 +26,7 @@ export default defineComponent({
     },
     async mounted() {
         const members = await getUsers();
-        this.members = members
+        this.members = sortedMembers(members)
 
         let countSum = 0;
 

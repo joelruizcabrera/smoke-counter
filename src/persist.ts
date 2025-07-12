@@ -11,23 +11,21 @@ export async function persistData(member:any):Promise<boolean> {
 
 export async function persistDataToStore(store:Store<object>):Promise<void> {
     const users = await getUsers();
-
-    const sortedMembers = users.sort(function(a:any, b:any) {
-        const keyA = a.count,
-            keyB = b.count;
-        // Compare the 2 dates
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-
-    console.log(sortedMembers);
-
-    await store.commit('setMembers', users);
+    await store.commit('setMembers', sortedMembers(users));
 }
 
 
 export async function getUsers():Promise<any> {
     const res = await axios.get("https://sizablepicture-eu.backendless.app/api/data/userdata");
     return res.data;
+}
+
+export const sortedMembers = (members:any) => {
+    const sortedArray = members.sort((a:any, b:any) => {
+        if (a["count"] < b["count"]) return -1
+        if (a["count"] > b["count"]) return 1
+        return 0
+    }).reverse();
+    console.log(sortedArray)
+    return sortedArray;
 }

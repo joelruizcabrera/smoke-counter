@@ -4,6 +4,8 @@ import {persistData} from '@/persist'
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
+import {sortedMembers} from '@/persist'
+
 export interface State {
     count: number
 }
@@ -30,16 +32,7 @@ export const store = createStore({
   },
   mutations: {
       setMembers (state, members) {
-          const sortedMembers = members.sort(function(a:any, b:any) {
-              const keyA = a.count,
-                  keyB = b.count;
-              // Compare the 2 dates
-              if (keyA < keyB) return -1;
-              if (keyA > keyB) return 1;
-              return 0;
-          });
-
-          state.members = sortedMembers
+          state.members = sortedMembers(members)
       }
   },
   actions: {
